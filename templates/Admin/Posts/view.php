@@ -7,11 +7,11 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Post'), ['action' => 'edit', $post->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Post'), ['action' => 'delete', $post->id], ['confirm' => __('Are you sure you want to delete # {0}?', $post->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Posts'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Post'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <h4 class="heading"><?= __('') ?></h4>
+            <?= $this->Html->link(__('編集'), ['action' => 'edit', $post->id], ['class' => 'side-nav-item']) ?>
+            <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $post->id], ['confirm' => __('本当に削除してもよろしいでしょうか # {0}?', $post->id), 'class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('投稿一覧'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('投稿する'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column column-80">
@@ -19,38 +19,30 @@
             <h3><?= h($post->title) ?></h3>
             <table>
                 <tr>
-                    <th><?= __('User') ?></th>
+                    <th><?= __('ユーザー名') ?></th>
                     <td><?= $post->hasValue('user') ? $this->Html->link($post->user->user_name, ['controller' => 'Users', 'action' => 'view', $post->user->id]) : '' ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Title') ?></th>
+                    <th><?= __('タイトル') ?></th>
                     <td><?= h($post->title) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($post->id) ?></td>
+                    <th><?= __('投稿日') ?></th>
+                    <td><?= h($post->created_at->i18nFormat('yyyy/MM/dd HH:mm')) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Created At') ?></th>
-                    <td><?= h($post->created_at) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Modified At') ?></th>
-                    <td><?= h($post->modified_at) ?></td>
-                </tr>
-                <tr>
-                    <th>いいね</th>
-                    <td><?= h($likes) ?></td>
+                    <th><?= __('更新日') ?></th>
+                    <td><?= h($post->modified_at->i18nFormat('yyyy/MM/dd HH:mm')) ?></td>
                 </tr>
             </table>
             <div class="text">
-                <strong><?= __('Discription') ?></strong>
+                <strong><?= __('概要') ?></strong>
                 <blockquote>
                     <?= $this->Text->autoParagraph(h($post->discription)); ?>
                 </blockquote>
             </div>
             <div class="text">
-                <strong><?= __('Body') ?></strong>
+                <strong><?= __('本文') ?></strong>
                 <blockquote>
                     <?= $this->Text->autoParagraph(h($post->body)); ?>
                 </blockquote>

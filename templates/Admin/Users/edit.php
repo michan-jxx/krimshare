@@ -7,29 +7,29 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
+            <h4 class="heading"><?= __('') ?></h4>
             <?= $this->Form->postLink(
-                __('Delete'),
+                __('削除'),
                 ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'side-nav-item']
+                ['confirm' => __('本当に削除してもよろしいでしょうか？ # {0}?', $user->id), 'class' => 'side-nav-item']
             ) ?>
-            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('ユーザー一覧'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column column-80">
         <div class="users form content">
             <?= $this->Form->create($user) ?>
             <fieldset>
-                <legend><?= __('Edit User') ?></legend>
+                <legend><?= __('編集') ?></legend>
                 <?php
-                    echo $this->Form->control('user_name');
-                    echo $this->Form->control('email');
-                    echo $this->Form->control('password');
-                    echo $this->Form->control('created_at', ['empty' => true]);
-                    echo $this->Form->control('modified_at', ['empty' => true]);
+                    echo $this->Form->control('user_name', ['label' => ['text' => 'ユーザー名']]);
+                    echo $this->Form->control('email', ['label' => ['text' => 'メールアドレス']]);
+                    echo $this->Form->control('password', ['label' => ['text' => 'パスワード']]);
+                    echo $this->Form->control('created_at', ['empty' => true, 'label' => ['text' => '登録日']]);
+                    echo $this->Form->control('modified_at', ['empty' => true, 'label' => ['text' => '更新日']]);
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('登録する')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

@@ -45,14 +45,20 @@ class PostsController extends AdminController
     public function view($id = null)
     {
         $post = $this->Posts->get($id, contain: ['Users']);
+        $user = $this->Authentication->getIdentity();
         $like = TableRegistry::getTableLocator()->get('Likes');
         $likes = $like->find()
-            ->select(['id'])
-            ->where(['post_id' => $id])
-            ->count();
+            ->select([
+                'id',
+                'user_id',
+            ])
+            ->where([
+                'post_id' => $id,
+                'user_id' => $user->id
+            ])
+            ->first();
 
-
-        $this->set(compact('post', 'likes'));
+        $this->set(compact('post', 'likes', 'user'));
     }
 
     /**
@@ -72,8 +78,10 @@ class PostsController extends AdminController
             }
             $this->Flash->error(__('The post could not be saved. Please, try again.'));
         }
-        $users = $this->Posts->Users->find('list', limit: 200)->all();
-        $this->set(compact('post', 'users'));
+        // $users = $this->Posts->Users->find('list', limit: 200)->all();
+        $user = $this->Authentication->getIdentity();
+        // debug($user->id);
+        $this->set(compact('post', 'user'));
     }
 
     /**
@@ -95,8 +103,9 @@ class PostsController extends AdminController
             }
             $this->Flash->error(__('The post could not be saved. Please, try again.'));
         }
-        $users = $this->Posts->Users->find('list', limit: 200)->all();
-        $this->set(compact('post', 'users'));
+        // $users = $this->Posts->Users->find('list', limit: 200)->all();
+        $user = $this->Authentication->getIdentity();
+        $this->set(compact('post', 'user'));
     }
 
     /**
